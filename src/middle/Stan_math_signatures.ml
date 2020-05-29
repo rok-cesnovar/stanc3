@@ -141,9 +141,11 @@ let full_lpdf = [Lpdf; Rng; Ccdf; Cdf]
 let full_lpmf = [Lpmf; Rng; Ccdf; Cdf]
 
 let reduce_sum_functions = ["reduce_sum"; "reduce_sum_static"]
-let variadic_ode_functions = ["ode_bdf_tol"; "ode_rk45_tol"; "ode_adams_tol"; "ode_bdf"; "ode_rk45"; "ode_adams"]
+let variadic_ode_functions = ["ode_bdf_tol"; "ode_rk45_tol"; "ode_adams_tol"; "ode_bdf"; "ode_rk45"; "ode_adams"; "ode_bdf_tol_error"; "ode_bdf_tol_error"; "ode_adams_tol_error"]
 let non_variadic_ode_functions = ["integrate_ode"; "integrate_ode_bdf"; "integrate_ode_adams"; "integrate_ode_rk45"]
 let ode_tolerances_suffix = "_tol"
+let ode_error_suffix = "_tol_error"
+let ode_sens_error_suffix = "_tol_sens_error"
 
 let is_reduce_sum_fn f = List.mem ~equal:String.equal reduce_sum_functions f
 let is_variadic_ode_fn f = List.mem ~equal:String.equal variadic_ode_functions f

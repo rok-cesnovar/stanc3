@@ -317,10 +317,18 @@ and gen_fun_app ppf fname es =
         when Stan_math_signatures.is_reduce_sum_fn x ->
           (strf "%s<%s>" fname f, grainsize :: container :: msgs :: tl)
       | true, x, f :: y0 :: t0 :: ts :: rel_tol :: abs_tol :: max_steps :: tl
-        when Stan_math_signatures.is_variadic_ode_fn x && String.is_suffix fname
-              ~suffix:Stan_math_signatures.ode_tolerances_suffix ->
+        when Stan_math_signatures.is_variadic_ode_fn x && (String.is_suffix fname
+              ~suffix:Stan_math_signatures.ode_tolerances_suffix
+              || String.is_suffix fname
+              ~suffix:Stan_math_signatures.ode_error_suffix) ->
           ( fname
           , f :: y0 :: t0 :: ts :: rel_tol :: abs_tol :: max_steps :: msgs
+            :: tl )
+      | true, x, f :: y0 :: t0 :: ts :: rel_tol :: abs_tol :: rel_tol_sens :: abs_tol_sens :: max_steps :: tl
+        when Stan_math_signatures.is_variadic_ode_fn x && String.is_suffix fname
+              ~suffix:Stan_math_signatures.ode_sens_error_suffix ->
+          ( fname
+          , f :: y0 :: t0 :: ts :: rel_tol :: abs_tol :: rel_tol_sens :: abs_tol_sens :: max_steps :: msgs
             :: tl )
       | true, x, f :: y0 :: t0 :: ts :: tl
         when Stan_math_signatures.is_variadic_ode_fn x ->

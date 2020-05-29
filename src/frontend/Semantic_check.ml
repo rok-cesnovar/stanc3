@@ -464,9 +464,20 @@ let semantic_check_fn ~is_cond_dist ~loc id es =
       semantic_check_reduce_sum ~is_cond_dist ~loc id es
   | StanLib
     when Stan_math_signatures.is_variadic_ode_fn id.name
-         && String.is_suffix id.name
-              ~suffix:Stan_math_signatures.ode_tolerances_suffix ->
+         && (String.is_suffix id.name
+              ~suffix:Stan_math_signatures.ode_tolerances_suffix
+         || String.is_suffix id.name
+              ~suffix:Stan_math_signatures.ode_error_suffix) ->
       semantic_check_variadic_ode_tol ~is_cond_dist ~loc id es
+  | StanLib
+    when Stan_math_signatures.is_variadic_ode_fn id.name
+         && String.is_suffix id.name
+              ~suffix:Stan_math_signatures.ode_sens_error_suffix ->
+      mk_typed_expression
+          ~expr:(mk_fun_app ~is_cond_dist (StanLib, id, es))
+          ~ad_level:(lub_ad_e es)
+          ~type_:(UnsizedType.UArray (UnsizedType.UVector)) ~loc
+        |> Validate.ok
   | StanLib
     when Stan_math_signatures.is_variadic_ode_fn id.name ->
       semantic_check_variadic_ode ~is_cond_dist ~loc id es
