@@ -193,6 +193,7 @@ let model_name_check_regex = Str.regexp "^[a-zA-Z_].*$"
 let main () =
   (* Parse the arguments. *)
   Arg.parse options add_file usage ;
+  Stan_math_code_gen.stanc_args := (Array.to_list Sys.argv);
   (* Deal with multiple modalities *)
   if !dump_stan_math_sigs then (
     Stan_math_signatures.pretty_print_all_math_sigs Format.std_formatter () ;

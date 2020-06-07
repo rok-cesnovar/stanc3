@@ -22,6 +22,10 @@ open Fmt
 open Expression_gen
 open Statement_gen
 
+let stanc_args = ref [""]
+(** A reference to hold the list of CLI arguments used with stanc *)
+
+
 let pp_unused = fmt "(void) %s;  // suppress unused var warning@ "
 
 (** Print name of model function.
@@ -654,12 +658,45 @@ let pp_model_public ppf p =
   (* Boilerplate *)
   pf ppf "@ %a" pp_overloads ()
 
+
 (** Print the full model class. *)
 let pp_model ppf ({Program.prog_name; _} as p) =
+  let stanc_args_to_print =
+    let filter x =
+      not (String.is_suffix ~suffix:".stan" x || String.is_prefix ~prefix:"--o" x)
+    in
+    (* Ignore the "--o" arg, the stan file and the binary name (bin/stanc). *)
+    let filter_args = 
+      List.filter ~f:filter (List.tl_exn !stanc_args)
+    in
+    String.concat ~sep:" " filter_args
+  in
   pf ppf "class %s : public model_base_crtp<%s> {" prog_name prog_name ;
   pf ppf "@ @[<v 1>@ private:@ @[<v 1> %a@]@ " pp_model_private p ;
   pf ppf "@ public:@ @[<v 1> ~%s() { }" p.prog_name ;
   pf ppf "@ @ std::string model_name() const { return \"%s\"; }" prog_name ;
+  pf ppf "@ @ %s() : model_base_crtp(0) @] {}" prog_name;
+  pf ppf {|  
+  std::vector<std::string> model_compile_info() const {
+    std::vector<std::string> info;
+    info.push_back("STANCFLAGS=%s");
+    info.push_back("STANC_VERSION=%s");
+#ifdef STAN_THREADS
+    info.push_back("STAN_THREADS=true");
+#endif
+#ifdef STAN_MPI
+    info.push_back("STAN_MPI=true");
+#endif
+#ifdef STAN_OPENCL
+    info.push_back("STAN_OPENCL=true");
+    std::stringstream msg;
+    msg << "OPENCL_PLATFORM_ID=" << OPENCL_PLATFORM_ID << "\n"
+        << "OPENCL_DEVICE_ID=" << OPENCL_DEVICE_ID;
+    info.push_back(msg.str());
+#endif
+    return info;
+  }
+  |} stanc_args_to_print "%%NAME%%3 %%VERSION%%";
   pf ppf "@ %a@]@]@ };" pp_model_public p
 
 (** The C++ aliases needed for the model class*)
@@ -812,7 +849,10 @@ stan::model::model_base& new_model(
   stan_model* m = new stan_model(data_context, seed, msg_stream);
   return *m;
 }
-
+stan::model::model_base& new_model() {
+  stan_model* m = new stan_model();
+  return *m;
+}
 #endif
 |} ;
   pf ppf "@[<v>%a@]" pp_register_map_rect_functors p
