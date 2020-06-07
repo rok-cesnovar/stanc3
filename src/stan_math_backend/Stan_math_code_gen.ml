@@ -679,25 +679,13 @@ let pp_model ppf ({Program.prog_name; _} as p) =
   pf ppf {|  
   std::vector<std::string> model_compile_info() const {
     std::vector<std::string> info;
+    info.push_back("MODEL_NAME=%s");
     info.push_back("STANCFLAGS=%s");
     info.push_back("STANC_VERSION=%s");
-#ifdef STAN_THREADS
-    info.push_back("STAN_THREADS=true");
-#endif
-#ifdef STAN_MPI
-    info.push_back("STAN_MPI=true");
-#endif
-#ifdef STAN_OPENCL
-    info.push_back("STAN_OPENCL=true");
-    std::stringstream msg;
-    msg << "OPENCL_PLATFORM_ID=" << OPENCL_PLATFORM_ID << "\n"
-        << "OPENCL_DEVICE_ID=" << OPENCL_DEVICE_ID;
-    info.push_back(msg.str());
-#endif
     return info;
   }
-  |} stanc_args_to_print "%%NAME%%3 %%VERSION%%";
-  pf ppf "@ %a@]@]@ };" pp_model_public p
+  |} prog_name stanc_args_to_print "%%NAME%%3 %%VERSION%%";
+  pf ppf "@ %a@]@]@ };"  pp_model_public p
 
 (** The C++ aliases needed for the model class*)
 let usings =
