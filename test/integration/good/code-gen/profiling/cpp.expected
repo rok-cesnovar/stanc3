@@ -233,17 +233,17 @@ class eight_schools_model : public model_base_crtp<eight_schools_model> {
       }
       {
         current_statement__ = 4;
-        start_profiling("theta");
+        start_profiling("theta", profiles);
         current_statement__ = 5;
         lp_accum__.add(normal_lpdf<propto__>(theta, mu, tau));
         current_statement__ = 6;
-        stop_profiling("theta");
+        stop_profiling("theta", profiles);
         current_statement__ = 7;
-        start_profiling("y");
+        start_profiling("y", profiles);
         current_statement__ = 8;
         lp_accum__.add(normal_lpdf<propto__>(y, theta, sigma));
         current_statement__ = 9;
-        stop_profiling("y");
+        stop_profiling("y", profiles);
       }
     } catch (const std::exception& e) {
       stan::lang::rethrow_located(e, locations_array__[current_statement__]);
