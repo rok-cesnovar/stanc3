@@ -1204,6 +1204,24 @@ let semantic_check_reject ~loc ~cf ps =
            mk_typed_statement ~stmt:(Reject ups) ~return_type:AnyReturnType
              ~loc ))
 
+let semantic_check_start_profiling ~loc ~cf ps =
+  Validate.(
+    ps
+    |> List.map ~f:(semantic_check_printable cf)
+    |> sequence
+    |> map ~f:(fun ups ->
+           mk_typed_statement ~stmt:(StartProfiling ups) ~return_type:NoReturnType ~loc
+       ))
+
+let semantic_check_stop_profiling ~loc ~cf ps =
+  Validate.(
+    ps
+    |> List.map ~f:(semantic_check_printable cf)
+    |> sequence
+    |> map ~f:(fun ups ->
+           mk_typed_statement ~stmt:(StopProfiling ups) ~return_type:NoReturnType ~loc
+       ))
+
 (* -- Skip ------------------------------------------------------------------ *)
 
 let semantic_check_skip ~loc =
@@ -1675,6 +1693,8 @@ and semantic_check_statement cf (s : Ast.untyped_statement) :
   | ReturnVoid -> semantic_check_returnvoid ~loc ~cf
   | Print ps -> semantic_check_print ~loc ~cf ps
   | Reject ps -> semantic_check_reject ~loc ~cf ps
+  | StartProfiling ps -> semantic_check_start_profiling ~loc ~cf ps
+  | StopProfiling ps -> semantic_check_stop_profiling ~loc ~cf ps
   | Skip -> semantic_check_skip ~loc
   | IfThenElse (e, s1, os2) -> semantic_check_if_then_else ~loc ~cf e s1 os2
   | While (e, s) -> semantic_check_while ~loc ~cf e s

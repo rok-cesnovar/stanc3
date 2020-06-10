@@ -136,6 +136,8 @@ type ('e, 's, 'l, 'f) statement =
   | ReturnVoid
   | Print of 'e printable list
   | Reject of 'e printable list
+  | StartProfiling of 'e printable list
+  | StopProfiling of 'e printable list
   | Skip
   | IfThenElse of 'e * 's * 's option
   | While of 'e * 's

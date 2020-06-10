@@ -30,7 +30,7 @@ let reducearray (sbt, l) =
 %token ASSIGN PLUSASSIGN MINUSASSIGN TIMESASSIGN DIVIDEASSIGN
    ELTDIVIDEASSIGN ELTTIMESASSIGN
 %token ARROWASSIGN INCREMENTLOGPROB GETLP (* all of these are deprecated *)
-%token PRINT REJECT
+%token PRINT REJECT START_PROFILING STOP_PROFILING
 %token TRUNCATE
 %token EOF
 %token UNREACHABLE
@@ -164,6 +164,7 @@ decl_identifier:
   | PRINT UNREACHABLE
   | REJECT UNREACHABLE
   | TARGET UNREACHABLE
+  | START_PROFILING UNREACHABLE
   | GETLP UNREACHABLE
     {
       raise (Failure "This should be unreachable; the UNREACHABLE token should \
@@ -567,6 +568,10 @@ atomic_statement:
     {  grammar_logger "continue_statement" ; Continue }
   | PRINT LPAREN l=printables RPAREN SEMICOLON
     {  grammar_logger "print_statement" ; Print l }
+  | START_PROFILING LPAREN l=printables RPAREN SEMICOLON
+    {  grammar_logger "start_profiling_statement" ; StartProfiling l  }
+  | STOP_PROFILING LPAREN l=printables RPAREN SEMICOLON
+    {  grammar_logger "stop_profiling_statement" ; StopProfiling l  }
   | REJECT LPAREN l=printables RPAREN SEMICOLON
     {  grammar_logger "reject_statement" ; Reject l  }
   | RETURN e=expression SEMICOLON

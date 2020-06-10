@@ -17,6 +17,8 @@ type t =
   | FnCheck
   | FnPrint
   | FnReject
+  | FnStartProfiling
+  | FnStopProfiling
   | FnResizeToMatch
   | FnNaN
 [@@deriving sexp]
