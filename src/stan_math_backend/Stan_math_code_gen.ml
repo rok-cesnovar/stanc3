@@ -794,8 +794,8 @@ let pp_prog ppf (p : Program.Typed.t) =
       ~f:(fun x -> "struct " ^ x ^ reduce_sum_functor_suffix ^ ";")
       (fun_used_in_reduce_sum p)
   in
-  pf ppf "@[<v>@ %s@ %s@ namespace %s {@ %s@ %s@ %a@ %s@ %a@ %a@ }@ @]" version
-    includes (namespace p) custom_functions usings Locations.pp_globals s
+  pf ppf "@[<v>@ %s@ %s@ namespace %s {@ %s@ %s@ %a@ %s@ %s@ %a@ %a@ }@ @]" version
+    includes (namespace p) custom_functions usings Locations.pp_globals s "stan::math::profilers profilers;"
     (String.concat ~sep:"\n" (String.Set.elements reduce_sum_struct_decl))
     (list ~sep:cut pp_fun_def_with_rs_list)
     p.functions_block pp_model p ;
