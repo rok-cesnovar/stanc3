@@ -318,8 +318,8 @@ and pp_statement ppf ({stmt= s_content; _} as ss) =
   | ReturnVoid -> Fmt.pf ppf "return;"
   | Print ps -> Fmt.pf ppf "print(%a);" pp_list_of_printables ps
   | Reject ps -> Fmt.pf ppf "reject(%a);" pp_list_of_printables ps
-  | StartProfiling ps -> Fmt.pf ppf "start_profiling(%a);" pp_list_of_printables ps
-  | StopProfiling ps -> Fmt.pf ppf "stop_profiling(%a);" pp_list_of_printables ps
+  | ProfileStart ps -> Fmt.pf ppf "profile_start(%a);" pp_list_of_printables ps
+  | ProfileEnd ps -> Fmt.pf ppf "profile_end(%a);" pp_list_of_printables ps
   | Skip -> Fmt.pf ppf ";"
   | IfThenElse (_, _, _) ->
       with_vbox ppf 0 (fun () -> pp_recursive_ifthenelse ppf ss)

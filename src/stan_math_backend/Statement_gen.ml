@@ -154,11 +154,11 @@ let rec pp_statement (ppf : Format.formatter)
       in
       pf ppf "if (pstream__) %a" pp_block (list ~sep:cut pp_arg, args)
   | NRFunApp (CompilerInternal, fname, args)
-    when fname = Internal_fun.to_string FnStartProfiling ->
-      pf ppf "start_profiling(%a, profiles);" (list ~sep:comma pp_expr) args
+    when fname = Internal_fun.to_string FnProfileStart ->
+      pf ppf "profile_start(%a, profiles);" (list ~sep:comma pp_expr) args
   | NRFunApp (CompilerInternal, fname, args)
-    when fname = Internal_fun.to_string FnStopProfiling ->
-      pf ppf "stop_profiling(%a, profiles);" (list ~sep:comma pp_expr) args
+    when fname = Internal_fun.to_string FnProfileEnd ->
+      pf ppf "profile_end(%a, profiles);" (list ~sep:comma pp_expr) args
   | NRFunApp (CompilerInternal, fname, args)
     when fname = Internal_fun.to_string FnReject ->
       let err_strm = "errmsg_stream__" in

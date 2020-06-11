@@ -283,6 +283,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'optimize_glm.stan', line 21, column 2 to column 15)",
                                                       " (in 'optimize_glm.stan', line 22, column 2 to column 16)"};
 
+stan::math::profilers profiles;
 
 
 class optimize_glm_model : public model_base_crtp<optimize_glm_model> {
@@ -1717,6 +1718,11 @@ class optimize_glm_model : public model_base_crtp<optimize_glm_model> {
     return s__.str();
     } // get_unconstrained_sizedtypes() 
     
+  
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
   
     // Begin method overload boilerplate
     template <typename RNG>

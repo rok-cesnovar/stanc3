@@ -122,6 +122,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'ad-level-failing.stan', line 24, column 4 to column 16)",
                                                       " (in 'ad-level-failing.stan', line 15, column 31 to line 25, column 3)"};
 
+stan::math::profilers profiles;
 
 template <typename T0__, typename T1__, typename T2__, typename T3__>
 std::vector<stan::promote_args_t<T0__, T1__, T2__,
@@ -872,6 +873,11 @@ class ad_level_failing_model : public model_base_crtp<ad_level_failing_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -1080,6 +1086,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'copy_fail.stan', line 28, column 4 to line 44, column 5)",
                                                       " (in 'copy_fail.stan', line 45, column 4 to column 15)"};
 
+stan::math::profilers profiles;
 
 int
 first_capture(const std::vector<int>& y_i, std::ostream* pstream__) {
@@ -3138,6 +3145,11 @@ class copy_fail_model : public model_base_crtp<copy_fail_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -3342,6 +3354,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'dce-fail.stan', line 14, column 2 to column 29)",
                                                       " (in 'dce-fail.stan', line 15, column 2 to column 25)"};
 
+stan::math::profilers profiles;
 
 
 class dce_fail_model : public model_base_crtp<dce_fail_model> {
@@ -4950,6 +4963,11 @@ class dce_fail_model : public model_base_crtp<dce_fail_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -5113,6 +5131,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'expr-prop-experiment.stan', line 11, column 2 to column 23)",
                                                       " (in 'expr-prop-experiment.stan', line 12, column 2 to column 23)"};
 
+stan::math::profilers profiles;
 
 
 class expr_prop_experiment_model : public model_base_crtp<expr_prop_experiment_model> {
@@ -5331,6 +5350,11 @@ class expr_prop_experiment_model : public model_base_crtp<expr_prop_experiment_m
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -5494,6 +5518,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'expr-prop-experiment2.stan', line 7, column 2 to line 11, column 3)",
                                                       " (in 'expr-prop-experiment2.stan', line 12, column 2 to column 23)"};
 
+stan::math::profilers profiles;
 
 
 class expr_prop_experiment2_model : public model_base_crtp<expr_prop_experiment2_model> {
@@ -5711,6 +5736,11 @@ class expr_prop_experiment2_model : public model_base_crtp<expr_prop_experiment2
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -5877,6 +5907,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'expr-prop-fail.stan', line 2, column 1 to column 18)",
                                                       " (in 'expr-prop-fail.stan', line 3, column 1 to column 13)"};
 
+stan::math::profilers profiles;
 
 
 class expr_prop_fail_model : public model_base_crtp<expr_prop_fail_model> {
@@ -6418,6 +6449,11 @@ class expr_prop_fail_model : public model_base_crtp<expr_prop_fail_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -6581,6 +6617,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'expr-prop-fail2.stan', line 3, column 2 to column 12)",
                                                       " (in 'expr-prop-fail2.stan', line 4, column 2 to column 25)"};
 
+stan::math::profilers profiles;
 
 
 class expr_prop_fail2_model : public model_base_crtp<expr_prop_fail2_model> {
@@ -6949,6 +6986,11 @@ class expr_prop_fail2_model : public model_base_crtp<expr_prop_fail2_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -7140,6 +7182,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'expr-prop-fail3.stan', line 15, column 2 to column 24)",
                                                       " (in 'expr-prop-fail3.stan', line 16, column 2 to column 28)"};
 
+stan::math::profilers profiles;
 
 
 class expr_prop_fail3_model : public model_base_crtp<expr_prop_fail3_model> {
@@ -8742,6 +8785,11 @@ class expr_prop_fail3_model : public model_base_crtp<expr_prop_fail3_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -8930,6 +8978,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'expr-prop-fail4.stan', line 6, column 2 to column 23)",
                                                       " (in 'expr-prop-fail4.stan', line 9, column 2 to column 27)"};
 
+stan::math::profilers profiles;
 
 
 class expr_prop_fail4_model : public model_base_crtp<expr_prop_fail4_model> {
@@ -9691,6 +9740,11 @@ class expr_prop_fail4_model : public model_base_crtp<expr_prop_fail4_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -9903,6 +9957,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'expr-prop-fail5.stan', line 28, column 4 to line 46, column 5)",
                                                       " (in 'expr-prop-fail5.stan', line 47, column 4 to column 15)"};
 
+stan::math::profilers profiles;
 
 int
 first_capture(const std::vector<int>& y_i, std::ostream* pstream__) {
@@ -11816,6 +11871,11 @@ class expr_prop_fail5_model : public model_base_crtp<expr_prop_fail5_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -12090,6 +12150,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'expr-prop-fail6.stan', line 86, column 4 to line 142, column 5)",
                                                       " (in 'expr-prop-fail6.stan', line 81, column 42 to line 143, column 3)"};
 
+stan::math::profilers profiles;
 
 int
 first_capture(const std::vector<int>& y_i, std::ostream* pstream__) {
@@ -15816,6 +15877,11 @@ class expr_prop_fail6_model : public model_base_crtp<expr_prop_fail6_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -15995,6 +16061,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'expr-prop-fail7.stan', line 16, column 2 to column 27)",
                                                       " (in 'expr-prop-fail7.stan', line 17, column 2 to column 29)"};
 
+stan::math::profilers profiles;
 
 
 class expr_prop_fail7_model : public model_base_crtp<expr_prop_fail7_model> {
@@ -17504,6 +17571,11 @@ class expr_prop_fail7_model : public model_base_crtp<expr_prop_fail7_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -17676,6 +17748,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'expr-prop-fail8.stan', line 7, column 2 to column 20)",
                                                       " (in 'expr-prop-fail8.stan', line 8, column 2 to column 14)"};
 
+stan::math::profilers profiles;
 
 
 class expr_prop_fail8_model : public model_base_crtp<expr_prop_fail8_model> {
@@ -18390,6 +18463,11 @@ class expr_prop_fail8_model : public model_base_crtp<expr_prop_fail8_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -18598,6 +18676,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'fails-test.stan', line 28, column 4 to line 44, column 5)",
                                                       " (in 'fails-test.stan', line 45, column 4 to column 15)"};
 
+stan::math::profilers profiles;
 
 int
 first_capture(const std::vector<int>& y_i, std::ostream* pstream__) {
@@ -20656,6 +20735,11 @@ class fails_test_model : public model_base_crtp<fails_test_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -20927,6 +21011,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'inlining-fail2.stan', line 152, column 4 to line 155, column 5)",
                                                       " (in 'inlining-fail2.stan', line 156, column 4 to column 26)"};
 
+stan::math::profilers profiles;
 
 int
 first_capture(const std::vector<int>& y_i, std::ostream* pstream__) {
@@ -24549,6 +24634,11 @@ class inlining_fail2_model : public model_base_crtp<inlining_fail2_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -24710,6 +24800,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'lcm-experiment.stan', line 7, column 2 to line 10, column 3)",
                                                       " (in 'lcm-experiment.stan', line 11, column 2 to column 38)"};
 
+stan::math::profilers profiles;
 
 
 class lcm_experiment_model : public model_base_crtp<lcm_experiment_model> {
@@ -24925,6 +25016,11 @@ class lcm_experiment_model : public model_base_crtp<lcm_experiment_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -25087,6 +25183,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'lcm-experiment2.stan', line 9, column 2 to line 10, column 11)",
                                                       " (in 'lcm-experiment2.stan', line 11, column 2 to column 14)"};
 
+stan::math::profilers profiles;
 
 
 class lcm_experiment2_model : public model_base_crtp<lcm_experiment2_model> {
@@ -25309,6 +25406,11 @@ class lcm_experiment2_model : public model_base_crtp<lcm_experiment2_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -25468,6 +25570,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'lcm-fails.stan', line 2, column 2 to column 17)",
                                                       " (in 'lcm-fails.stan', line 3, column 2 to column 12)"};
 
+stan::math::profilers profiles;
 
 
 class lcm_fails_model : public model_base_crtp<lcm_fails_model> {
@@ -25745,6 +25848,11 @@ class lcm_fails_model : public model_base_crtp<lcm_fails_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -25951,6 +26059,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'lcm-fails2.stan', line 28, column 4 to line 44, column 5)",
                                                       " (in 'lcm-fails2.stan', line 45, column 4 to column 15)"};
 
+stan::math::profilers profiles;
 
 int
 first_capture(const std::vector<int>& y_i, std::ostream* pstream__) {
@@ -27692,6 +27801,11 @@ class lcm_fails2_model : public model_base_crtp<lcm_fails2_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -27888,6 +28002,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'off-dce.stan', line 15, column 17 to line 19, column 3)",
                                                       " (in 'off-dce.stan', line 15, column 2 to line 19, column 3)"};
 
+stan::math::profilers profiles;
 
 
 class off_dce_model : public model_base_crtp<off_dce_model> {
@@ -28818,6 +28933,11 @@ class off_dce_model : public model_base_crtp<off_dce_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -28998,6 +29118,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'off-small.stan', line 6, column 2 to column 22)",
                                                       " (in 'off-small.stan', line 7, column 2 to column 14)"};
 
+stan::math::profilers profiles;
 
 
 class off_small_model : public model_base_crtp<off_small_model> {
@@ -29919,6 +30040,11 @@ class off_small_model : public model_base_crtp<off_small_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -30167,6 +30293,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'optimizations.stan', line 11, column 8 to column 21)",
                                                       " (in 'optimizations.stan', line 16, column 8 to column 18)"};
 
+stan::math::profilers profiles;
 
 template <bool propto__, typename T0__, typename T_lp__,
 typename T_lp_accum__>
@@ -31490,6 +31617,11 @@ class optimizations_model : public model_base_crtp<optimizations_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -31663,6 +31795,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'partial-eval.stan', line 6, column 2 to column 39)",
                                                       " (in 'partial-eval.stan', line 7, column 2 to column 14)"};
 
+stan::math::profilers profiles;
 
 
 class partial_eval_model : public model_base_crtp<partial_eval_model> {
@@ -32403,6 +32536,11 @@ class partial_eval_model : public model_base_crtp<partial_eval_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -32583,6 +32721,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'stalled1-failure.stan', line 25, column 4 to column 11)",
                                                       " (in 'stalled1-failure.stan', line 26, column 4 to column 21)"};
 
+stan::math::profilers profiles;
 
 
 class stalled1_failure_model : public model_base_crtp<stalled1_failure_model> {
@@ -33592,6 +33731,11 @@ class stalled1_failure_model : public model_base_crtp<stalled1_failure_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -33926,6 +34070,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'unroll-limit.stan', line 15, column 20 to line 17, column 3)",
                                                       " (in 'unroll-limit.stan', line 15, column 2 to line 17, column 3)"};
 
+stan::math::profilers profiles;
 
 
 class unroll_limit_model : public model_base_crtp<unroll_limit_model> {
@@ -34388,6 +34533,11 @@ class unroll_limit_model : public model_base_crtp<unroll_limit_model> {
     return s__.str();
     } // get_unconstrained_sizedtypes() 
     
+  
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
   
     // Begin method overload boilerplate
     template <typename RNG>

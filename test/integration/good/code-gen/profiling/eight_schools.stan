@@ -9,11 +9,11 @@ parameters {
   real<lower=0> tau;
 }
 model {
-  start_profiling("theta");
+  profile_start("theta");
   theta ~ normal(mu, tau);
-  stop_profiling("theta");
+  profile_end("theta");
   
-  start_profiling("y");
+  profile_start("y");
   y ~ normal(theta,sigma);
-  stop_profiling("y");
+  profile_end("y");
 }

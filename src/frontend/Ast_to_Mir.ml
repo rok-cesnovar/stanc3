@@ -559,16 +559,16 @@ let rec trans_stmt ud_dists (declc : decl_context) (ts : Ast.typed_statement) =
         , Internal_fun.to_string FnReject
         , trans_printables smeta ps )
       |> swrap
-  | Ast.StartProfiling ps ->
+  | Ast.ProfileStart ps ->
       NRFunApp
         ( CompilerInternal
-        , Internal_fun.to_string FnStartProfiling
+        , Internal_fun.to_string FnProfileStart
         , trans_printables smeta ps )
       |> swrap
-  | Ast.StopProfiling ps ->
+  | Ast.ProfileEnd ps ->
       NRFunApp
         ( CompilerInternal
-        , Internal_fun.to_string FnStopProfiling
+        , Internal_fun.to_string FnProfileEnd
         , trans_printables smeta ps )
       |> swrap
   | Ast.IfThenElse (cond, ifb, elseb) ->

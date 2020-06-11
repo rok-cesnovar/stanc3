@@ -94,16 +94,17 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'eight_schools.stan', line 7, column 2 to column 10)",
                                                       " (in 'eight_schools.stan', line 8, column 2 to column 16)",
                                                       " (in 'eight_schools.stan', line 9, column 2 to column 20)",
-                                                      " (in 'eight_schools.stan', line 12, column 2 to column 27)",
+                                                      " (in 'eight_schools.stan', line 12, column 2 to column 25)",
                                                       " (in 'eight_schools.stan', line 13, column 2 to column 26)",
-                                                      " (in 'eight_schools.stan', line 14, column 2 to column 26)",
-                                                      " (in 'eight_schools.stan', line 16, column 2 to column 23)",
+                                                      " (in 'eight_schools.stan', line 14, column 2 to column 23)",
+                                                      " (in 'eight_schools.stan', line 16, column 2 to column 21)",
                                                       " (in 'eight_schools.stan', line 17, column 2 to column 26)",
-                                                      " (in 'eight_schools.stan', line 18, column 2 to column 22)",
+                                                      " (in 'eight_schools.stan', line 18, column 2 to column 19)",
                                                       " (in 'eight_schools.stan', line 2, column 2 to column 17)",
                                                       " (in 'eight_schools.stan', line 3, column 2 to column 12)",
                                                       " (in 'eight_schools.stan', line 4, column 2 to column 25)"};
 
+stan::math::profilers profiles;
 
 
 class eight_schools_model : public model_base_crtp<eight_schools_model> {
@@ -233,17 +234,17 @@ class eight_schools_model : public model_base_crtp<eight_schools_model> {
       }
       {
         current_statement__ = 4;
-        start_profiling("theta", profiles);
+        profile_start("theta", profiles);
         current_statement__ = 5;
         lp_accum__.add(normal_lpdf<propto__>(theta, mu, tau));
         current_statement__ = 6;
-        stop_profiling("theta", profiles);
+        profile_end("theta", profiles);
         current_statement__ = 7;
-        start_profiling("y", profiles);
+        profile_start("y", profiles);
         current_statement__ = 8;
         lp_accum__.add(normal_lpdf<propto__>(y, theta, sigma));
         current_statement__ = 9;
-        stop_profiling("y", profiles);
+        profile_end("y", profiles);
       }
     } catch (const std::exception& e) {
       stan::lang::rethrow_located(e, locations_array__[current_statement__]);
@@ -436,6 +437,11 @@ class eight_schools_model : public model_base_crtp<eight_schools_model> {
     return s__.str();
     } // get_unconstrained_sizedtypes() 
     
+  
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
   
     // Begin method overload boilerplate
     template <typename RNG>

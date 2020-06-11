@@ -103,6 +103,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'eight_schools_ncp.stan', line 3, column 2 to column 12)",
                                                       " (in 'eight_schools_ncp.stan', line 4, column 2 to column 25)"};
 
+stan::math::profilers profiles;
 
 
 class eight_schools_ncp_model : public model_base_crtp<eight_schools_ncp_model> {
@@ -471,6 +472,11 @@ class eight_schools_ncp_model : public model_base_crtp<eight_schools_ncp_model> 
     return s__.str();
     } // get_unconstrained_sizedtypes() 
     
+  
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
   
     // Begin method overload boilerplate
     template <typename RNG>
@@ -1087,6 +1093,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'mother.stan', line 312, column 4 to column 16)",
                                                       " (in 'mother.stan', line 309, column 78 to line 313, column 3)"};
 
+stan::math::profilers profiles;
 
 int
 foo(const int& n, std::ostream* pstream__) ;
@@ -8974,6 +8981,11 @@ class mother_model : public model_base_crtp<mother_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -9285,6 +9297,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'motherHOF.stan', line 33, column 4 to column 15)",
                                                       " (in 'motherHOF.stan', line 29, column 39 to line 34, column 3)"};
 
+stan::math::profilers profiles;
 
 template <typename T0__, typename T1__, typename T2__, typename T3__>
 std::vector<stan::promote_args_t<T0__, T1__, T2__,
@@ -10958,6 +10971,11 @@ class motherHOF_model : public model_base_crtp<motherHOF_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -11312,6 +11330,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'optimize_glm.stan', line 21, column 2 to column 15)",
                                                       " (in 'optimize_glm.stan', line 22, column 2 to column 16)"};
 
+stan::math::profilers profiles;
 
 
 class optimize_glm_model : public model_base_crtp<optimize_glm_model> {
@@ -12672,6 +12691,11 @@ class optimize_glm_model : public model_base_crtp<optimize_glm_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -12848,6 +12872,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'reduce_sum_m1.stan', line 17, column 4 to column 38)",
                                                       " (in 'reduce_sum_m1.stan', line 16, column 52 to line 18, column 3)"};
 
+stan::math::profilers profiles;
 struct foo_lpdf_rsfunctor__;
 struct g_rsfunctor__;
 struct h_rsfunctor__;
@@ -13324,6 +13349,11 @@ class reduce_sum_m1_model : public model_base_crtp<reduce_sum_m1_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -13617,6 +13647,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'reduce_sum_m2.stan', line 120, column 4 to column 20)",
                                                       " (in 'reduce_sum_m2.stan', line 113, column 53 to line 121, column 3)"};
 
+stan::math::profilers profiles;
 struct g1_rsfunctor__;
 struct g2_rsfunctor__;
 struct g3_rsfunctor__;
@@ -16392,6 +16423,11 @@ class reduce_sum_m2_model : public model_base_crtp<reduce_sum_m2_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -16768,6 +16804,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'reduce_sum_m3.stan', line 152, column 4 to column 15)",
                                                       " (in 'reduce_sum_m3.stan', line 88, column 11 to line 153, column 3)"};
 
+stan::math::profilers profiles;
 struct f10_rsfunctor__;
 struct f11_rsfunctor__;
 struct f12_rsfunctor__;
@@ -20706,6 +20743,11 @@ class reduce_sum_m3_model : public model_base_crtp<reduce_sum_m3_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -20868,6 +20910,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'tilde-block.stan', line 9, column 8 to column 38)",
                                                       " (in 'tilde-block.stan', line 2, column 4 to column 10)"};
 
+stan::math::profilers profiles;
 
 
 class tilde_block_model : public model_base_crtp<tilde_block_model> {
@@ -21114,6 +21157,11 @@ class tilde_block_model : public model_base_crtp<tilde_block_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -21289,6 +21337,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'truncate.stan', line 2, column 4 to column 10)",
                                                       " (in 'truncate.stan', line 3, column 4 to column 11)"};
 
+stan::math::profilers profiles;
 
 
 class truncate_model : public model_base_crtp<truncate_model> {
@@ -21621,6 +21670,11 @@ class truncate_model : public model_base_crtp<truncate_model> {
     } // get_unconstrained_sizedtypes() 
     
   
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
+  
     // Begin method overload boilerplate
     template <typename RNG>
     void write_array(RNG& base_rng__,
@@ -21780,6 +21834,7 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in 'user_constrain.stan', line 3, column 4 to column 13)",
                                                       " (in 'user_constrain.stan', line 2, column 36 to line 4, column 3)"};
 
+stan::math::profilers profiles;
 
 template <typename T0__, typename T1__>
 stan::promote_args_t<T0__,
@@ -22026,6 +22081,11 @@ class user_constrain_model : public model_base_crtp<user_constrain_model> {
     return s__.str();
     } // get_unconstrained_sizedtypes() 
     
+  
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  
   
     // Begin method overload boilerplate
     template <typename RNG>

@@ -166,8 +166,8 @@ rule token = parse
 (* Effects *)
   | "print"                   { lexer_logger "print" ; Parser.PRINT }
   | "reject"                  { lexer_logger "reject" ; Parser.REJECT }
-  | "start_profiling"                  { lexer_logger "start_profiling" ; Parser.START_PROFILING }
-  | "stop_profiling"                  { lexer_logger "stop_profiling" ; Parser.STOP_PROFILING }
+  | "profile_start"                  { lexer_logger "profile_start" ; Parser.PROFILE_START }
+  | "profile_end"                  { lexer_logger "profile_end" ; Parser.PROFILE_END }
   | 'T'                       { lexer_logger "T" ; Parser.TRUNCATE } (* TODO: this is a hack; we should change to something like truncate and make it a reserved keyword *)
 (* Constants and identifiers *)
   | integer_constant as i     { lexer_logger ("int_constant " ^ i) ;
