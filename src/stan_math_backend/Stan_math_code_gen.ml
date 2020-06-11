@@ -590,6 +590,12 @@ let pp_constrained_types ppf {Program.output_vars; _} =
   let outvars = List.map ~f:grab_constrained output_vars in
   pp_outvar_metadata ppf ("get_constrained_sizedtypes", outvars)
 
+let pp_get_profilers =
+  {|
+    inline void get_profilers(stan::math::profilers& p) {
+      p = profiles;
+    }
+  |}
 (** Print the generic method overloads needed in the model class. *)
 let pp_overloads ppf () =
   pf ppf
@@ -651,6 +657,7 @@ let pp_model_public ppf p =
   pf ppf "@ %a" pp_unconstrained_param_names p ;
   pf ppf "@ %a" pp_constrained_types p ;
   pf ppf "@ %a" pp_unconstrained_types p ;
+  pf ppf "@ %s" pp_get_profilers;
   (* Boilerplate *)
   pf ppf "@ %a" pp_overloads ()
 
@@ -795,7 +802,7 @@ let pp_prog ppf (p : Program.Typed.t) =
       (fun_used_in_reduce_sum p)
   in
   pf ppf "@[<v>@ %s@ %s@ namespace %s {@ %s@ %s@ %a@ %s@ %s@ %a@ %a@ }@ @]" version
-    includes (namespace p) custom_functions usings Locations.pp_globals s "stan::math::profilers profilers;"
+    includes (namespace p) custom_functions usings Locations.pp_globals s "stan::math::profilers profiles;"
     (String.concat ~sep:"\n" (String.Set.elements reduce_sum_struct_decl))
     (list ~sep:cut pp_fun_def_with_rs_list)
     p.functions_block pp_model p ;
