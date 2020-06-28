@@ -323,6 +323,7 @@ class optimize_glm_model : public model_base_crtp<optimize_glm_model> {
   
   std::string model_name() const { return "optimize_glm_model"; }
   
+<<<<<<< HEAD
   optimize_glm_model() : model_base_crtp(0)  {}  
   std::vector<std::string> model_compile_info() const {
     std::vector<std::string> info;
@@ -542,6 +543,223 @@ class optimize_glm_model : public model_base_crtp<optimize_glm_model> {
      y_vi_d_td_opencl__ = to_matrix_cl(y_vi_d_td);
    } catch (const std::exception& e) {
      stan::lang::rethrow_located(e, locations_array__[current_statement__]);
+=======
+  optimize_glm_model(stan::io::var_context& context__,
+                     unsigned int random_seed__ = 0,
+                     std::ostream* pstream__ = nullptr) : model_base_crtp(0) {
+    typedef double local_scalar_t__;
+    boost::ecuyer1988 base_rng__ = 
+        stan::services::util::create_rng(random_seed__, 0);
+    (void) base_rng__;  // suppress unused var warning
+    static const char* function__ = "optimize_glm_model_namespace::optimize_glm_model";
+    (void) function__;  // suppress unused var warning
+    local_scalar_t__ DUMMY_VAR__(std::numeric_limits<double>::quiet_NaN());
+    (void) DUMMY_VAR__;  // suppress unused var warning
+    
+    try {
+      pos__ = std::numeric_limits<int>::min();
+      
+      pos__ = 1;
+      current_statement__ = 174;
+      context__.validate_dims("data initialization","k","int",
+          context__.to_vec());
+      k = std::numeric_limits<int>::min();
+      
+      current_statement__ = 174;
+      k = context__.vals_i("k")[(1 - 1)];
+      current_statement__ = 175;
+      context__.validate_dims("data initialization","n","int",
+          context__.to_vec());
+      n = std::numeric_limits<int>::min();
+      
+      current_statement__ = 175;
+      n = context__.vals_i("n")[(1 - 1)];
+      current_statement__ = 176;
+      validate_non_negative_index("X_d", "n", n);
+      current_statement__ = 176;
+      validate_non_negative_index("X_d", "k", k);
+      current_statement__ = 176;
+      context__.validate_dims("data initialization","X_d","double",
+          context__.to_vec(n, k));
+      X_d = Eigen::Matrix<double, -1, -1>(n, k);
+      stan::math::fill(X_d, std::numeric_limits<double>::quiet_NaN());
+      
+      {
+        std::vector<local_scalar_t__> X_d_flat__;
+        current_statement__ = 176;
+        assign(X_d_flat__, nil_index_list(), context__.vals_r("X_d"),
+          "assigning variable X_d_flat__");
+        current_statement__ = 176;
+        pos__ = 1;
+        current_statement__ = 176;
+        for (int sym1__ = 1; sym1__ <= k; ++sym1__) {
+          current_statement__ = 176;
+          for (int sym2__ = 1; sym2__ <= n; ++sym2__) {
+            current_statement__ = 176;
+            assign(X_d,
+              cons_list(index_uni(sym2__),
+                cons_list(index_uni(sym1__), nil_index_list())),
+              X_d_flat__[(pos__ - 1)], "assigning variable X_d");
+            current_statement__ = 176;
+            pos__ = (pos__ + 1);}}
+      }
+      current_statement__ = 177;
+      validate_non_negative_index("y_v_d", "n", n);
+      current_statement__ = 177;
+      context__.validate_dims("data initialization","y_v_d","double",
+          context__.to_vec(n));
+      y_v_d = Eigen::Matrix<double, -1, 1>(n);
+      stan::math::fill(y_v_d, std::numeric_limits<double>::quiet_NaN());
+      
+      {
+        std::vector<local_scalar_t__> y_v_d_flat__;
+        current_statement__ = 177;
+        assign(y_v_d_flat__, nil_index_list(), context__.vals_r("y_v_d"),
+          "assigning variable y_v_d_flat__");
+        current_statement__ = 177;
+        pos__ = 1;
+        current_statement__ = 177;
+        for (int sym1__ = 1; sym1__ <= n; ++sym1__) {
+          current_statement__ = 177;
+          assign(y_v_d, cons_list(index_uni(sym1__), nil_index_list()),
+            y_v_d_flat__[(pos__ - 1)], "assigning variable y_v_d");
+          current_statement__ = 177;
+          pos__ = (pos__ + 1);}
+      }
+      current_statement__ = 178;
+      validate_non_negative_index("X_rv_d", "n", n);
+      current_statement__ = 178;
+      context__.validate_dims("data initialization","X_rv_d","double",
+          context__.to_vec(n));
+      X_rv_d = Eigen::Matrix<double, 1, -1>(n);
+      stan::math::fill(X_rv_d, std::numeric_limits<double>::quiet_NaN());
+      
+      {
+        std::vector<local_scalar_t__> X_rv_d_flat__;
+        current_statement__ = 178;
+        assign(X_rv_d_flat__, nil_index_list(), context__.vals_r("X_rv_d"),
+          "assigning variable X_rv_d_flat__");
+        current_statement__ = 178;
+        pos__ = 1;
+        current_statement__ = 178;
+        for (int sym1__ = 1; sym1__ <= n; ++sym1__) {
+          current_statement__ = 178;
+          assign(X_rv_d, cons_list(index_uni(sym1__), nil_index_list()),
+            X_rv_d_flat__[(pos__ - 1)], "assigning variable X_rv_d");
+          current_statement__ = 178;
+          pos__ = (pos__ + 1);}
+      }
+      current_statement__ = 179;
+      validate_non_negative_index("y_vi_d", "n", n);
+      current_statement__ = 179;
+      context__.validate_dims("data initialization","y_vi_d","int",
+          context__.to_vec(n));
+      y_vi_d = std::vector<int>(n, std::numeric_limits<int>::min());
+      
+      current_statement__ = 179;
+      assign(y_vi_d, nil_index_list(), context__.vals_i("y_vi_d"),
+        "assigning variable y_vi_d");
+      current_statement__ = 180;
+      validate_non_negative_index("y2_vi_d", "n", n);
+      current_statement__ = 180;
+      context__.validate_dims("data initialization","y2_vi_d","int",
+          context__.to_vec(n));
+      y2_vi_d = std::vector<int>(n, std::numeric_limits<int>::min());
+      
+      current_statement__ = 180;
+      assign(y2_vi_d, nil_index_list(), context__.vals_i("y2_vi_d"),
+        "assigning variable y2_vi_d");
+      current_statement__ = 181;
+      context__.validate_dims("data initialization","y_s_d","int",
+          context__.to_vec());
+      y_s_d = std::numeric_limits<int>::min();
+      
+      current_statement__ = 181;
+      y_s_d = context__.vals_i("y_s_d")[(1 - 1)];
+      current_statement__ = 182;
+      context__.validate_dims("data initialization","y_r_d","double",
+          context__.to_vec());
+      y_r_d = std::numeric_limits<double>::quiet_NaN();
+      
+      current_statement__ = 182;
+      y_r_d = context__.vals_r("y_r_d")[(1 - 1)];
+      current_statement__ = 183;
+      k_td = std::numeric_limits<int>::min();
+      
+      current_statement__ = 184;
+      n_td = std::numeric_limits<int>::min();
+      
+      current_statement__ = 185;
+      validate_non_negative_index("X_d_td", "n", n);
+      current_statement__ = 185;
+      validate_non_negative_index("X_d_td", "k", k);
+      current_statement__ = 185;
+      X_d_td = Eigen::Matrix<double, -1, -1>(n, k);
+      stan::math::fill(X_d_td, std::numeric_limits<double>::quiet_NaN());
+      
+      current_statement__ = 186;
+      validate_non_negative_index("y_v_d_td", "n", n);
+      current_statement__ = 186;
+      y_v_d_td = Eigen::Matrix<double, -1, 1>(n);
+      stan::math::fill(y_v_d_td, std::numeric_limits<double>::quiet_NaN());
+      
+      current_statement__ = 187;
+      validate_non_negative_index("X_rv_d_td", "n", n);
+      current_statement__ = 187;
+      X_rv_d_td = Eigen::Matrix<double, 1, -1>(n);
+      stan::math::fill(X_rv_d_td, std::numeric_limits<double>::quiet_NaN());
+      
+      current_statement__ = 188;
+      validate_non_negative_index("y_vi_d_td", "n", n);
+      current_statement__ = 188;
+      y_vi_d_td = std::vector<int>(n, std::numeric_limits<int>::min());
+      
+      current_statement__ = 189;
+      validate_non_negative_index("y2_vi_d_td", "n", n);
+      current_statement__ = 189;
+      y2_vi_d_td = std::vector<int>(n, std::numeric_limits<int>::min());
+      
+      current_statement__ = 190;
+      y_s_d_td = std::numeric_limits<int>::min();
+      
+      current_statement__ = 191;
+      y_r_d_td = std::numeric_limits<double>::quiet_NaN();
+      
+      current_statement__ = 174;
+      current_statement__ = 174;
+      check_greater_or_equal(function__, "k", k, 1);
+      current_statement__ = 175;
+      current_statement__ = 175;
+      check_greater_or_equal(function__, "n", n, 0);
+      current_statement__ = 183;
+      current_statement__ = 183;
+      check_greater_or_equal(function__, "k_td", k_td, 1);
+      current_statement__ = 184;
+      current_statement__ = 184;
+      check_greater_or_equal(function__, "n_td", n_td, 0);
+      
+      X_d_opencl__ = to_matrix_cl(X_d);
+      
+      X_d_td_opencl__ = to_matrix_cl(X_d_td);
+      
+      y_r_d_opencl__ = to_matrix_cl(y_r_d);
+      
+      y_r_d_td_opencl__ = to_matrix_cl(y_r_d_td);
+      
+      y_s_d_opencl__ = to_matrix_cl(y_s_d);
+      
+      y_s_d_td_opencl__ = to_matrix_cl(y_s_d_td);
+      
+      y_v_d_opencl__ = to_matrix_cl(y_v_d);
+      
+      y_v_d_td_opencl__ = to_matrix_cl(y_v_d_td);
+      
+      y_vi_d_opencl__ = to_matrix_cl(y_vi_d);
+      
+      y_vi_d_td_opencl__ = to_matrix_cl(y_vi_d_td);
+    } catch (const std::exception& e) {
+      stan::lang::rethrow_located(e, locations_array__[current_statement__]);
+>>>>>>> master
       // Next line prevents compiler griping about no return
       throw std::runtime_error("*** IF YOU SEE THIS, PLEASE REPORT A BUG ***"); 
    }
