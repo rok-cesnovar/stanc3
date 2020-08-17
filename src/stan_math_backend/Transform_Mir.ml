@@ -6,28 +6,23 @@ let use_opencl = ref false
 let opencl_triggers =
   String.Map.of_alist_exn
     [ ( "normal_id_glm_lpdf"
-      , ( [ (* Array of conditions under which to move to OpenCL *)
-            ([], (* No data requirements *)
-             [(1, UnsizedType.UMatrix)]) (* Argument 1 must be a matrix *)
-           ] ) )
-    ; ( "bernoulli_logit_glm_lpmf"
-      , ([([], [(1, UnsizedType.UMatrix)])]) )
-    ; ( "categorical_logit_glm_lpmf"
-      , ([([], [(1, UnsizedType.UMatrix)])]) )
-    ; ( "neg_binomial_2_log_glm_lpmf"
-      , ([([], [(1, UnsizedType.UMatrix)])]) )
-    ; ( "ordered_logistic_glm_lpmf"
-      , ([([], [(1, UnsizedType.UMatrix)])]) )
-    ; ("poisson_log_glm_lpmf", ([([], [(1, UnsizedType.UMatrix)])]))
-    ]
+      , [ (* Array of conditions under which to move to OpenCL *)
+          ([], (* No data requirements *)
+               [(1, UnsizedType.UMatrix)])
+        (* Argument 1 must be a matrix *)
+         ] )
+    ; ("bernoulli_logit_glm_lpmf", [([], [(1, UnsizedType.UMatrix)])])
+    ; ("categorical_logit_glm_lpmf", [([], [(1, UnsizedType.UMatrix)])])
+    ; ("neg_binomial_2_log_glm_lpmf", [([], [(1, UnsizedType.UMatrix)])])
+    ; ("ordered_logistic_glm_lpmf", [([], [(1, UnsizedType.UMatrix)])])
+    ; ("poisson_log_glm_lpmf", [([], [(1, UnsizedType.UMatrix)])]) ]
 
 let opencl_suffix = "_opencl__"
 
 let to_matrix_cl e =
   match Expr.Typed.type_of e with
-  | UReal | UInt ->   e
-  | _ ->
-  Expr.Fixed.{e with pattern= FunApp (StanLib, "to_matrix_cl", [e])}
+  | UReal | UInt -> e
+  | _ -> Expr.Fixed.{e with pattern= FunApp (StanLib, "to_matrix_cl", [e])}
 
 let rec switch_expr_to_opencl available_cl_vars (Expr.Fixed.({pattern; _}) as e)
     =
