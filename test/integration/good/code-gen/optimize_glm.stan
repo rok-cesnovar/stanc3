@@ -69,17 +69,17 @@ model {
   target += normal_id_glm_lpdf(y_v_d_td | X_p, alpha_d, beta_d, sigma_d);
   y_v_d_td ~ normal_id_glm(X_p, alpha_d, beta_d, sigma_d);
 
-  target += normal_id_glm_lpdf(y_r_d_td | X_d_td, alpha, beta, beta);
-  y_r_d_td ~ normal_id_glm(X_d_td, alpha, beta, beta);
+  target += normal_id_glm_lpdf(y_r_d_td | X_d_td, alpha, beta, sigma_v);
+  y_r_d_td ~ normal_id_glm(X_d_td, alpha, beta, sigma_v);
   
-  target += normal_id_glm_lpdf(y_r_d_td | X_p, alpha, beta, beta);
-  y_r_d_td ~ normal_id_glm(X_p, alpha, beta, beta);
+  target += normal_id_glm_lpdf(y_r_d_td | X_p, alpha, beta, sigma_v);
+  y_r_d_td ~ normal_id_glm(X_p, alpha, beta, sigma_v);
   
-  target += normal_id_glm_lpdf(y_v_d_td | X_rv_d_td, alpha, beta, beta);
-  y_v_d_td ~ normal_id_glm(X_rv_d_td, alpha, beta, beta);
+  target += normal_id_glm_lpdf(y_v_d_td | X_rv_d_td, alpha, beta, sigma_v);
+  y_v_d_td ~ normal_id_glm(X_rv_d_td, alpha, beta, sigma_v);
 
-  target += normal_id_glm_lpdf(y_v_d_td | X_rv_p, alpha, beta, beta);
-  y_v_d_td ~ normal_id_glm(X_rv_p, alpha, beta, beta);
+  target += normal_id_glm_lpdf(y_v_d_td | X_rv_p, alpha, beta, sigma_v);
+  y_v_d_td ~ normal_id_glm(X_rv_p, alpha, beta, sigma_v);
 
   target += bernoulli_logit_glm_lpmf(y_vi_d| X_d, alpha, beta);
   y_vi_d ~ bernoulli_logit_glm(X_d, alpha, beta);
