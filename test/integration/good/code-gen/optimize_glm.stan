@@ -8,6 +8,8 @@ data {
   int y2_vi_d[n];
   int y_s_d;
   real y_r_d;
+  real alpha_d;
+  vector[k] beta_d;
 }
 
 transformed data {
@@ -20,6 +22,7 @@ transformed data {
   int y2_vi_d_td[n];
   int y_s_d_td;
   real y_r_d_td;
+  real<lower=0> sigma_d;
 }
 
 parameters {
@@ -27,6 +30,7 @@ parameters {
   vector[k] beta;
   vector[k] cuts;
   real<lower=0> sigma;
+  vector[k] sigma_v;
   real alpha;
   real phi; 
   matrix[n, k] X_p;
@@ -38,20 +42,23 @@ model {
   target += normal_id_glm_lpdf(y_v_d | X_d, alpha, beta, sigma);
   y_v_d ~ normal_id_glm(X_d, alpha, beta, sigma);
 
+  target += normal_id_glm_lpdf(y_v_d | X_d, alpha_d, beta_d, sigma);
+  y_v_d ~ normal_id_glm(X_d, alpha_d, beta_d, sigma);
+
   target += normal_id_glm_lpdf(y_v_d | X_p, alpha, beta, sigma);
   y_v_d ~ normal_id_glm(X_p, alpha, beta, sigma);
 
-  target += normal_id_glm_lpdf(y_r_d | X_d, alpha, beta, beta);
-  y_r_d ~ normal_id_glm(X_d, alpha, beta, beta);
+  target += normal_id_glm_lpdf(y_r_d | X_d, alpha, beta, sigma_v);
+  y_r_d ~ normal_id_glm(X_d, alpha, beta, sigma_v);
 
-  target += normal_id_glm_lpdf(y_r_d | X_p, alpha, beta, beta);
-  y_r_d ~ normal_id_glm(X_p, alpha, beta, beta);
+  target += normal_id_glm_lpdf(y_r_d | X_p, alpha, beta, sigma_v);
+  y_r_d ~ normal_id_glm(X_p, alpha, beta, sigma_v);
 
-  target += normal_id_glm_lpdf(y_v_d | X_rv_d, alpha, beta, beta);
-  y_v_d ~ normal_id_glm(X_rv_d, alpha, beta, beta);
+  target += normal_id_glm_lpdf(y_v_d | X_rv_d, alpha, beta, sigma_v);
+  y_v_d ~ normal_id_glm(X_rv_d, alpha, beta, sigma_v);
 
-  target += normal_id_glm_lpdf(y_v_d | X_rv_p, alpha, beta, beta);
-  y_v_d ~ normal_id_glm(X_rv_p, alpha, beta, beta);  
+  target += normal_id_glm_lpdf(y_v_d | X_rv_p, alpha, beta, sigma_v);
+  y_v_d ~ normal_id_glm(X_rv_p, alpha, beta, sigma_v);  
 
   target += normal_id_glm_lpdf(y_v_d_td | X_d_td, alpha, beta, sigma);
   y_v_d_td ~ normal_id_glm(X_d_td, alpha, beta, sigma);
@@ -59,6 +66,9 @@ model {
   target += normal_id_glm_lpdf(y_v_d_td | X_p, alpha, beta, sigma);
   y_v_d_td ~ normal_id_glm(X_p, alpha, beta, sigma);
   
+  target += normal_id_glm_lpdf(y_v_d_td | X_p, alpha_d, beta_d, sigma_d);
+  y_v_d_td ~ normal_id_glm(X_p, alpha_d, beta_d, sigma_d);
+
   target += normal_id_glm_lpdf(y_r_d_td | X_d_td, alpha, beta, beta);
   y_r_d_td ~ normal_id_glm(X_d_td, alpha, beta, beta);
   
