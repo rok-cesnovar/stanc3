@@ -6,21 +6,19 @@ let use_opencl = ref false
 let opencl_triggers =
   String.Map.of_alist_exn
     [ ( "normal_id_glm_lpdf"
-      , ( [0; 1]
-        , [ (* Array of conditions under which to move to OpenCL *)
-            ([1], (* Argument 1 is data *)
-                  [(1, UnsizedType.UMatrix)])
-          (* Argument 1 is a matrix *)
+      , ( [ (* Array of conditions under which to move to OpenCL *)
+            ([], (* No data requirements *)
+             [(1, UnsizedType.UMatrix)]) (* Argument 1 must be a matrix *)
            ] ) )
     ; ( "bernoulli_logit_glm_lpmf"
-      , ([0; 1], [([1], [(1, UnsizedType.UMatrix)])]) )
+      , ([([], [(1, UnsizedType.UMatrix)])]) )
     ; ( "categorical_logit_glm_lpmf"
-      , ([0; 1], [([1], [(1, UnsizedType.UMatrix)])]) )
+      , ([([], [(1, UnsizedType.UMatrix)])]) )
     ; ( "neg_binomial_2_log_glm_lpmf"
-      , ([0; 1], [([1], [(1, UnsizedType.UMatrix)])]) )
+      , ([([], [(1, UnsizedType.UMatrix)])]) )
     ; ( "ordered_logistic_glm_lpmf"
-      , ([0; 1], [([1], [(1, UnsizedType.UMatrix)])]) )
-    ; ("poisson_log_glm_lpmf", ([0; 1], [([1], [(1, UnsizedType.UMatrix)])]))
+      , ([([], [(1, UnsizedType.UMatrix)])]) )
+    ; ("poisson_log_glm_lpmf", ([([], [(1, UnsizedType.UMatrix)])]))
     ]
 
 let opencl_suffix = "_opencl__"
@@ -37,9 +35,6 @@ let rec switch_expr_to_opencl available_cl_vars (Expr.Fixed.({pattern; _}) as e)
         Expr.Fixed.{e with pattern= Var (s ^ opencl_suffix)}
     | _ -> to_matrix_cl e
   in
-  let move_cl_args cl_args index arg =
-    if List.mem ~equal:( = ) cl_args index then to_cl arg else arg
-  in
   let check_type args (i, t) = Expr.Typed.type_of (List.nth_exn args i) = t in
   let check_if_data args ind =
     let Expr.Fixed.({pattern; _}) = List.nth_exn args ind in
@@ -50,9 +45,9 @@ let rec switch_expr_to_opencl available_cl_vars (Expr.Fixed.({pattern; _}) as e)
     && List.for_all ~f:(check_type args) type_arg
   in
   let any_req_met args req_args = List.exists ~f:(req_met args) req_args in
-  let maybe_map_args args (cl_args, req_args) =
+  let maybe_map_args args req_args =
     match any_req_met args req_args with
-    | true -> List.mapi args ~f:(move_cl_args cl_args)
+    | true -> List.map args ~f:to_cl
     | false -> args
   in
   match pattern with
