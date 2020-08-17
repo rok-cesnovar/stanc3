@@ -19,7 +19,7 @@ transformed data {
   int y_vi_d_td[n];
   int y2_vi_d_td[n];
   int y_s_d_td;
-  real y_r_d_td; 
+  real y_r_d_td;
 }
 
 parameters {

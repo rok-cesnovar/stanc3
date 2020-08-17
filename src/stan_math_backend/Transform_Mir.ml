@@ -24,6 +24,9 @@ let opencl_triggers =
 let opencl_suffix = "_opencl__"
 
 let to_matrix_cl e =
+  match Expr.Typed.type_of e with
+  | UReal | UInt ->   e
+  | _ ->
   Expr.Fixed.{e with pattern= FunApp (StanLib, "to_matrix_cl", [e])}
 
 let rec switch_expr_to_opencl available_cl_vars (Expr.Fixed.({pattern; _}) as e)

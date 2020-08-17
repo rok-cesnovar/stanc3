@@ -529,25 +529,25 @@ class optimize_glm_model final : public model_base_crtp<optimize_glm_model> {
       current_statement__ = 211;
       validate_non_negative_index("X_rv_p", "n", n);
       
-      X_d_opencl__ = to_matrix_cl(X_d);
+      X_d_opencl__ = X_d;
       
-      X_d_td_opencl__ = to_matrix_cl(X_d_td);
+      X_d_td_opencl__ = X_d_td;
       
-      y_r_d_opencl__ = to_matrix_cl(y_r_d);
+      y_r_d_opencl__ = y_r_d;
       
-      y_r_d_td_opencl__ = to_matrix_cl(y_r_d_td);
+      y_r_d_td_opencl__ = y_r_d_td;
       
-      y_s_d_opencl__ = to_matrix_cl(y_s_d);
+      y_s_d_opencl__ = y_s_d;
       
-      y_s_d_td_opencl__ = to_matrix_cl(y_s_d_td);
+      y_s_d_td_opencl__ = y_s_d_td;
       
-      y_v_d_opencl__ = to_matrix_cl(y_v_d);
+      y_v_d_opencl__ = y_v_d;
       
-      y_v_d_td_opencl__ = to_matrix_cl(y_v_d_td);
+      y_v_d_td_opencl__ = y_v_d_td;
       
-      y_vi_d_opencl__ = to_matrix_cl(y_vi_d);
+      y_vi_d_opencl__ = y_vi_d;
       
-      y_vi_d_td_opencl__ = to_matrix_cl(y_vi_d_td);
+      y_vi_d_td_opencl__ = y_vi_d_td;
     } catch (const std::exception& e) {
       stan::lang::rethrow_located(e, locations_array__[current_statement__]);
       // Next line prevents compiler griping about no return
@@ -649,36 +649,36 @@ class optimize_glm_model final : public model_base_crtp<optimize_glm_model> {
       {
         current_statement__ = 10;
         lp_accum__.add(
-          normal_id_glm_lpdf<false>(y_v_d_opencl__, X_d_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(sigma)));
+          normal_id_glm_lpdf<false>(y_v_d_opencl__, X_d_opencl__, alpha,
+            to_matrix_cl(beta), sigma));
         current_statement__ = 11;
         lp_accum__.add(
-          normal_id_glm_lpdf<propto__>(y_v_d_opencl__, X_d_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(sigma)));
+          normal_id_glm_lpdf<propto__>(y_v_d_opencl__, X_d_opencl__, alpha,
+            to_matrix_cl(beta), sigma));
         current_statement__ = 12;
         lp_accum__.add(
-          normal_id_glm_lpdf<false>(y_v_d_opencl__, to_matrix_cl(X_p),
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(sigma)));
+          normal_id_glm_lpdf<false>(y_v_d_opencl__, to_matrix_cl(X_p), alpha,
+            to_matrix_cl(beta), sigma));
         current_statement__ = 13;
         lp_accum__.add(
           normal_id_glm_lpdf<propto__>(y_v_d_opencl__, to_matrix_cl(X_p),
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(sigma)));
+            alpha, to_matrix_cl(beta), sigma));
         current_statement__ = 14;
         lp_accum__.add(
-          normal_id_glm_lpdf<false>(y_r_d_opencl__, X_d_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(beta)));
+          normal_id_glm_lpdf<false>(y_r_d_opencl__, X_d_opencl__, alpha,
+            to_matrix_cl(beta), to_matrix_cl(beta)));
         current_statement__ = 15;
         lp_accum__.add(
-          normal_id_glm_lpdf<propto__>(y_r_d_opencl__, X_d_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(beta)));
+          normal_id_glm_lpdf<propto__>(y_r_d_opencl__, X_d_opencl__, alpha,
+            to_matrix_cl(beta), to_matrix_cl(beta)));
         current_statement__ = 16;
         lp_accum__.add(
-          normal_id_glm_lpdf<false>(y_r_d_opencl__, to_matrix_cl(X_p),
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(beta)));
+          normal_id_glm_lpdf<false>(y_r_d_opencl__, to_matrix_cl(X_p), alpha,
+            to_matrix_cl(beta), to_matrix_cl(beta)));
         current_statement__ = 17;
         lp_accum__.add(
           normal_id_glm_lpdf<propto__>(y_r_d_opencl__, to_matrix_cl(X_p),
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta), to_matrix_cl(beta)));
         current_statement__ = 18;
         lp_accum__.add(
           normal_id_glm_lpdf<false>(y_v_d, X_rv_d, alpha, beta, beta));
@@ -694,35 +694,35 @@ class optimize_glm_model final : public model_base_crtp<optimize_glm_model> {
         current_statement__ = 22;
         lp_accum__.add(
           normal_id_glm_lpdf<false>(y_v_d_td_opencl__, X_d_td_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(sigma)));
+            alpha, to_matrix_cl(beta), sigma));
         current_statement__ = 23;
         lp_accum__.add(
           normal_id_glm_lpdf<propto__>(y_v_d_td_opencl__, X_d_td_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(sigma)));
+            alpha, to_matrix_cl(beta), sigma));
         current_statement__ = 24;
         lp_accum__.add(
           normal_id_glm_lpdf<false>(y_v_d_td_opencl__, to_matrix_cl(X_p),
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(sigma)));
+            alpha, to_matrix_cl(beta), sigma));
         current_statement__ = 25;
         lp_accum__.add(
           normal_id_glm_lpdf<propto__>(y_v_d_td_opencl__, to_matrix_cl(X_p),
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(sigma)));
+            alpha, to_matrix_cl(beta), sigma));
         current_statement__ = 26;
         lp_accum__.add(
           normal_id_glm_lpdf<false>(y_r_d_td_opencl__, X_d_td_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta), to_matrix_cl(beta)));
         current_statement__ = 27;
         lp_accum__.add(
           normal_id_glm_lpdf<propto__>(y_r_d_td_opencl__, X_d_td_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta), to_matrix_cl(beta)));
         current_statement__ = 28;
         lp_accum__.add(
           normal_id_glm_lpdf<false>(y_r_d_td_opencl__, to_matrix_cl(X_p),
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta), to_matrix_cl(beta)));
         current_statement__ = 29;
         lp_accum__.add(
           normal_id_glm_lpdf<propto__>(y_r_d_td_opencl__, to_matrix_cl(X_p),
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta), to_matrix_cl(beta)));
         current_statement__ = 30;
         lp_accum__.add(
           normal_id_glm_lpdf<false>(y_v_d_td, X_rv_d_td, alpha, beta, beta));
@@ -739,19 +739,19 @@ class optimize_glm_model final : public model_base_crtp<optimize_glm_model> {
         current_statement__ = 34;
         lp_accum__.add(
           bernoulli_logit_glm_lpmf<false>(y_vi_d_opencl__, X_d_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta)));
         current_statement__ = 35;
         lp_accum__.add(
           bernoulli_logit_glm_lpmf<propto__>(y_vi_d_opencl__, X_d_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta)));
         current_statement__ = 36;
         lp_accum__.add(
           bernoulli_logit_glm_lpmf<false>(y_vi_d_opencl__, to_matrix_cl(X_p),
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta)));
         current_statement__ = 37;
         lp_accum__.add(
           bernoulli_logit_glm_lpmf<propto__>(y_vi_d_opencl__,
-            to_matrix_cl(X_p), to_matrix_cl(alpha), to_matrix_cl(beta)));
+            to_matrix_cl(X_p), alpha, to_matrix_cl(beta)));
         current_statement__ = 38;
         lp_accum__.add(
           bernoulli_logit_glm_lpmf<false>(y_vi_d, X_rv_d, alpha, beta));
@@ -767,35 +767,35 @@ class optimize_glm_model final : public model_base_crtp<optimize_glm_model> {
         current_statement__ = 42;
         lp_accum__.add(
           bernoulli_logit_glm_lpmf<false>(y_s_d_opencl__, X_d_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta)));
         current_statement__ = 43;
         lp_accum__.add(
           bernoulli_logit_glm_lpmf<propto__>(y_s_d_opencl__, X_d_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta)));
         current_statement__ = 44;
         lp_accum__.add(
           bernoulli_logit_glm_lpmf<false>(y_s_d_opencl__, to_matrix_cl(X_p),
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta)));
         current_statement__ = 45;
         lp_accum__.add(
           bernoulli_logit_glm_lpmf<propto__>(y_s_d_opencl__,
-            to_matrix_cl(X_p), to_matrix_cl(alpha), to_matrix_cl(beta)));
+            to_matrix_cl(X_p), alpha, to_matrix_cl(beta)));
         current_statement__ = 46;
         lp_accum__.add(
           bernoulli_logit_glm_lpmf<false>(y_vi_d_td_opencl__,
-            X_d_td_opencl__, to_matrix_cl(alpha), to_matrix_cl(beta)));
+            X_d_td_opencl__, alpha, to_matrix_cl(beta)));
         current_statement__ = 47;
         lp_accum__.add(
           bernoulli_logit_glm_lpmf<propto__>(y_vi_d_td_opencl__,
-            X_d_td_opencl__, to_matrix_cl(alpha), to_matrix_cl(beta)));
+            X_d_td_opencl__, alpha, to_matrix_cl(beta)));
         current_statement__ = 48;
         lp_accum__.add(
           bernoulli_logit_glm_lpmf<false>(y_vi_d_td_opencl__,
-            to_matrix_cl(X_p), to_matrix_cl(alpha), to_matrix_cl(beta)));
+            to_matrix_cl(X_p), alpha, to_matrix_cl(beta)));
         current_statement__ = 49;
         lp_accum__.add(
           bernoulli_logit_glm_lpmf<propto__>(y_vi_d_td_opencl__,
-            to_matrix_cl(X_p), to_matrix_cl(alpha), to_matrix_cl(beta)));
+            to_matrix_cl(X_p), alpha, to_matrix_cl(beta)));
         current_statement__ = 50;
         lp_accum__.add(
           bernoulli_logit_glm_lpmf<false>(y_vi_d_td, X_rv_d_td, alpha, beta));
@@ -812,51 +812,51 @@ class optimize_glm_model final : public model_base_crtp<optimize_glm_model> {
         current_statement__ = 54;
         lp_accum__.add(
           bernoulli_logit_glm_lpmf<false>(y_s_d_td_opencl__, X_d_td_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta)));
         current_statement__ = 55;
         lp_accum__.add(
           bernoulli_logit_glm_lpmf<propto__>(y_s_d_td_opencl__,
-            X_d_td_opencl__, to_matrix_cl(alpha), to_matrix_cl(beta)));
+            X_d_td_opencl__, alpha, to_matrix_cl(beta)));
         current_statement__ = 56;
         lp_accum__.add(
           bernoulli_logit_glm_lpmf<false>(y_s_d_td_opencl__,
-            to_matrix_cl(X_p), to_matrix_cl(alpha), to_matrix_cl(beta)));
+            to_matrix_cl(X_p), alpha, to_matrix_cl(beta)));
         current_statement__ = 57;
         lp_accum__.add(
           bernoulli_logit_glm_lpmf<propto__>(y_s_d_td_opencl__,
-            to_matrix_cl(X_p), to_matrix_cl(alpha), to_matrix_cl(beta)));
+            to_matrix_cl(X_p), alpha, to_matrix_cl(beta)));
         current_statement__ = 58;
         lp_accum__.add(
-          poisson_log_glm_lpmf<false>(y_vi_d_opencl__, X_d_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+          poisson_log_glm_lpmf<false>(y_vi_d_opencl__, X_d_opencl__, alpha,
+            to_matrix_cl(beta)));
         current_statement__ = 59;
         lp_accum__.add(
           poisson_log_glm_lpmf<propto__>(y_vi_d_opencl__, X_d_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta)));
         current_statement__ = 60;
         lp_accum__.add(
           poisson_log_glm_lpmf<false>(y_vi_d_opencl__, to_matrix_cl(X_p),
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta)));
         current_statement__ = 61;
         lp_accum__.add(
           poisson_log_glm_lpmf<propto__>(y_vi_d_opencl__, to_matrix_cl(X_p),
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta)));
         current_statement__ = 62;
         lp_accum__.add(
-          poisson_log_glm_lpmf<false>(y_s_d_opencl__, X_d_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+          poisson_log_glm_lpmf<false>(y_s_d_opencl__, X_d_opencl__, alpha,
+            to_matrix_cl(beta)));
         current_statement__ = 63;
         lp_accum__.add(
-          poisson_log_glm_lpmf<propto__>(y_s_d_opencl__, X_d_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+          poisson_log_glm_lpmf<propto__>(y_s_d_opencl__, X_d_opencl__, alpha,
+            to_matrix_cl(beta)));
         current_statement__ = 64;
         lp_accum__.add(
           poisson_log_glm_lpmf<false>(y_s_d_opencl__, to_matrix_cl(X_p),
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta)));
         current_statement__ = 65;
         lp_accum__.add(
           poisson_log_glm_lpmf<propto__>(y_s_d_opencl__, to_matrix_cl(X_p),
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta)));
         current_statement__ = 66;
         lp_accum__.add(
           poisson_log_glm_lpmf<false>(y_vi_d, X_rv_d, alpha, beta));
@@ -872,35 +872,35 @@ class optimize_glm_model final : public model_base_crtp<optimize_glm_model> {
         current_statement__ = 70;
         lp_accum__.add(
           poisson_log_glm_lpmf<false>(y_vi_d_td_opencl__, X_d_td_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta)));
         current_statement__ = 71;
         lp_accum__.add(
           poisson_log_glm_lpmf<propto__>(y_vi_d_td_opencl__, X_d_td_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta)));
         current_statement__ = 72;
         lp_accum__.add(
           poisson_log_glm_lpmf<false>(y_vi_d_td_opencl__, to_matrix_cl(X_p),
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta)));
         current_statement__ = 73;
         lp_accum__.add(
           poisson_log_glm_lpmf<propto__>(y_vi_d_td_opencl__,
-            to_matrix_cl(X_p), to_matrix_cl(alpha), to_matrix_cl(beta)));
+            to_matrix_cl(X_p), alpha, to_matrix_cl(beta)));
         current_statement__ = 74;
         lp_accum__.add(
           poisson_log_glm_lpmf<false>(y_s_d_td_opencl__, X_d_td_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta)));
         current_statement__ = 75;
         lp_accum__.add(
           poisson_log_glm_lpmf<propto__>(y_s_d_td_opencl__, X_d_td_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta)));
         current_statement__ = 76;
         lp_accum__.add(
           poisson_log_glm_lpmf<false>(y_s_d_td_opencl__, to_matrix_cl(X_p),
-            to_matrix_cl(alpha), to_matrix_cl(beta)));
+            alpha, to_matrix_cl(beta)));
         current_statement__ = 77;
         lp_accum__.add(
           poisson_log_glm_lpmf<propto__>(y_s_d_td_opencl__,
-            to_matrix_cl(X_p), to_matrix_cl(alpha), to_matrix_cl(beta)));
+            to_matrix_cl(X_p), alpha, to_matrix_cl(beta)));
         current_statement__ = 78;
         lp_accum__.add(
           poisson_log_glm_lpmf<false>(y_vi_d_td, X_rv_d_td, alpha, beta));
@@ -916,40 +916,35 @@ class optimize_glm_model final : public model_base_crtp<optimize_glm_model> {
         current_statement__ = 82;
         lp_accum__.add(
           neg_binomial_2_log_glm_lpmf<false>(y_vi_d_opencl__, X_d_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(phi)));
+            alpha, to_matrix_cl(beta), phi));
         current_statement__ = 83;
         lp_accum__.add(
           neg_binomial_2_log_glm_lpmf<propto__>(y_vi_d_opencl__,
-            X_d_opencl__, to_matrix_cl(alpha), to_matrix_cl(beta),
-            to_matrix_cl(phi)));
+            X_d_opencl__, alpha, to_matrix_cl(beta), phi));
         current_statement__ = 84;
         lp_accum__.add(
           neg_binomial_2_log_glm_lpmf<false>(y_vi_d_opencl__,
-            to_matrix_cl(X_p), to_matrix_cl(alpha), to_matrix_cl(beta),
-            to_matrix_cl(phi)));
+            to_matrix_cl(X_p), alpha, to_matrix_cl(beta), phi));
         current_statement__ = 85;
         lp_accum__.add(
           neg_binomial_2_log_glm_lpmf<propto__>(y_vi_d_opencl__,
-            to_matrix_cl(X_p), to_matrix_cl(alpha), to_matrix_cl(beta),
-            to_matrix_cl(phi)));
+            to_matrix_cl(X_p), alpha, to_matrix_cl(beta), phi));
         current_statement__ = 86;
         lp_accum__.add(
           neg_binomial_2_log_glm_lpmf<false>(y_s_d_opencl__, X_d_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(phi)));
+            alpha, to_matrix_cl(beta), phi));
         current_statement__ = 87;
         lp_accum__.add(
           neg_binomial_2_log_glm_lpmf<propto__>(y_s_d_opencl__, X_d_opencl__,
-            to_matrix_cl(alpha), to_matrix_cl(beta), to_matrix_cl(phi)));
+            alpha, to_matrix_cl(beta), phi));
         current_statement__ = 88;
         lp_accum__.add(
           neg_binomial_2_log_glm_lpmf<false>(y_s_d_opencl__,
-            to_matrix_cl(X_p), to_matrix_cl(alpha), to_matrix_cl(beta),
-            to_matrix_cl(phi)));
+            to_matrix_cl(X_p), alpha, to_matrix_cl(beta), phi));
         current_statement__ = 89;
         lp_accum__.add(
           neg_binomial_2_log_glm_lpmf<propto__>(y_s_d_opencl__,
-            to_matrix_cl(X_p), to_matrix_cl(alpha), to_matrix_cl(beta),
-            to_matrix_cl(phi)));
+            to_matrix_cl(X_p), alpha, to_matrix_cl(beta), phi));
         current_statement__ = 90;
         lp_accum__.add(
           neg_binomial_2_log_glm_lpmf<false>(y_vi_d, X_rv_d, alpha, beta,
@@ -969,43 +964,35 @@ class optimize_glm_model final : public model_base_crtp<optimize_glm_model> {
         current_statement__ = 94;
         lp_accum__.add(
           neg_binomial_2_log_glm_lpmf<false>(y_vi_d_td_opencl__,
-            X_d_td_opencl__, to_matrix_cl(alpha), to_matrix_cl(beta),
-            to_matrix_cl(phi)));
+            X_d_td_opencl__, alpha, to_matrix_cl(beta), phi));
         current_statement__ = 95;
         lp_accum__.add(
           neg_binomial_2_log_glm_lpmf<propto__>(y_vi_d_td_opencl__,
-            X_d_td_opencl__, to_matrix_cl(alpha), to_matrix_cl(beta),
-            to_matrix_cl(phi)));
+            X_d_td_opencl__, alpha, to_matrix_cl(beta), phi));
         current_statement__ = 96;
         lp_accum__.add(
           neg_binomial_2_log_glm_lpmf<false>(y_vi_d_td_opencl__,
-            to_matrix_cl(X_p), to_matrix_cl(alpha), to_matrix_cl(beta),
-            to_matrix_cl(phi)));
+            to_matrix_cl(X_p), alpha, to_matrix_cl(beta), phi));
         current_statement__ = 97;
         lp_accum__.add(
           neg_binomial_2_log_glm_lpmf<propto__>(y_vi_d_td_opencl__,
-            to_matrix_cl(X_p), to_matrix_cl(alpha), to_matrix_cl(beta),
-            to_matrix_cl(phi)));
+            to_matrix_cl(X_p), alpha, to_matrix_cl(beta), phi));
         current_statement__ = 98;
         lp_accum__.add(
           neg_binomial_2_log_glm_lpmf<false>(y_s_d_td_opencl__,
-            X_d_td_opencl__, to_matrix_cl(alpha), to_matrix_cl(beta),
-            to_matrix_cl(phi)));
+            X_d_td_opencl__, alpha, to_matrix_cl(beta), phi));
         current_statement__ = 99;
         lp_accum__.add(
           neg_binomial_2_log_glm_lpmf<propto__>(y_s_d_td_opencl__,
-            X_d_td_opencl__, to_matrix_cl(alpha), to_matrix_cl(beta),
-            to_matrix_cl(phi)));
+            X_d_td_opencl__, alpha, to_matrix_cl(beta), phi));
         current_statement__ = 100;
         lp_accum__.add(
           neg_binomial_2_log_glm_lpmf<false>(y_s_d_td_opencl__,
-            to_matrix_cl(X_p), to_matrix_cl(alpha), to_matrix_cl(beta),
-            to_matrix_cl(phi)));
+            to_matrix_cl(X_p), alpha, to_matrix_cl(beta), phi));
         current_statement__ = 101;
         lp_accum__.add(
           neg_binomial_2_log_glm_lpmf<propto__>(y_s_d_td_opencl__,
-            to_matrix_cl(X_p), to_matrix_cl(alpha), to_matrix_cl(beta),
-            to_matrix_cl(phi)));
+            to_matrix_cl(X_p), alpha, to_matrix_cl(beta), phi));
         current_statement__ = 102;
         lp_accum__.add(
           neg_binomial_2_log_glm_lpmf<false>(y_vi_d_td, X_rv_d_td, alpha,
