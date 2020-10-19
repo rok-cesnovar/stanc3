@@ -1,6 +1,6 @@
 name: Release scripts
 on:
-  workflow_dispatch
+  workflow_dispatch:
     inputs:
       branch:
         description: 'stanc3 branch used for compiling test Stan models.'
