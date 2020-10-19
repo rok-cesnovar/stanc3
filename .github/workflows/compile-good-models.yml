@@ -1,0 +1,71 @@
+name: Release scripts
+on:
+  workflow_dispatch
+    inputs:
+      branch:
+        description: 'stanc3 branch used for compiling test Stan models.'
+        required: true
+        default: 'master'
+      models_folder:
+        description: 'Folder with test Stan models to compile.'
+        required: true
+        default: 'test/integration/good'
+
+env:
+  ocaml-version: 4.07.0
+
+jobs:
+  compile-good-models:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout stanc3
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: opam caching
+        id: opam-cache
+        uses: actions/cache@v2
+        with:
+          path: "~/.opam"
+          key: ubuntu-latest-${{ env.ocaml-version }}
+
+      - name: Install OCaml ${{ env.ocaml-version }}
+        uses: avsm/setup-ocaml@v1
+        with:
+          ocaml-version: ${{ env.ocaml-version }}
+
+      - name: Install dependencies
+        run: |
+          opam update; 
+          bash -x ./scripts/install_build_deps.sh
+          opam update;
+          bash -x ./scripts/install_dev_deps.sh
+          opam update;
+          bash -x ./scripts/install_js_deps.sh
+          eval $(opam env)          
+
+      - name: Build and check
+        run: |
+          eval $(opam env)
+          dune build @install
+          make format  ||
+          (
+              set +x &&
+              echo "The source code was not formatted. Please run 'make format; dune promote' and push the changes." &&
+              echo "Please consider installing the pre-commit git hook for formatting with the above command." &&
+              echo "Our hook can be installed with bash ./scripts/hooks/install_hooks.sh" &&
+              exit 1;
+          )
+          eval $(opam env)
+          dune runtest
+      
+      - name: Compile all good integration models
+        run: |
+         git clone https://github.com/stan-dev/performance-tests-cmdstan --recursive
+         cd performance-tests-cmdstan 
+         cd cmdstan; 
+         echo "O=0" >> make/local
+         echo "STANC3=../../stanc3"
+         make build; cd ..
+         ./runPerformanceTests.py -j4 --runs=0 ../${{ github.event.inputs.models_folder }}
