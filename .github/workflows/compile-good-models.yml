@@ -1,4 +1,4 @@
-name: Release scripts
+name: Compile good models
 on:
   workflow_dispatch:
     inputs:
