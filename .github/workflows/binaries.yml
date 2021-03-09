@@ -12,7 +12,7 @@ jobs:
   linux:
     runs-on: ubuntu-latest
     container:
-      image: ocaml/opam2:alpine-3.9-ocaml-4.12
+      image: ocaml/opam2:alpine-3.9-ocaml-4.11
       options: --user root
     steps:    
       - name: Checkout stanc3
@@ -25,14 +25,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "~/.opam"
-          key: linux-stanc-binary-4.12
+          key: linux-stanc-binary-4.11
 
       - name: Install dependencies
         run: |
           sudo apk update
           sudo apk add build-base bzip2 git tar curl ca-certificates openssl m4 bash
           opam init --disable-sandboxing -y
-          opam switch 4.12.0 || opam switch create 4.12.0
+          opam switch 4.11.1 || opam switch create 4.11.1
           eval $(opam env)
           opam repo add internet https://opam.ocaml.org
           opam update
