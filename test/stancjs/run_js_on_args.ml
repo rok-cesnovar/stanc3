@@ -2,8 +2,8 @@ module Caml_unix = Unix
 open Core
 
 let run_capturing_output cmd =
-  let noflags = Array.create ~len:0 "" in
-  let stdout, stdin, stderr = Caml_unix.open_process_full cmd noflags in
+  let env = [| "PATH=" ^ (Sys.getenv "PATH" |> Option.value ~default:"") |] in
+  let stdout, stdin, stderr = Caml_unix.open_process_full cmd env in
   let chns = [stdout; stderr] in
   let out = List.map ~f:In_channel.input_lines chns in
   ignore (Caml_unix.close_process_full (stdout, stdin, stderr));
