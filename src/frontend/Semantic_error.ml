@@ -833,8 +833,10 @@ let illtyped_assignment loc assignop lt rt =
 let illtyped_ternary_if loc predt lt rt =
   (loc, ExpressionError (ExpressionError.IllTypedTernaryIf (predt, lt, rt)))
 
-let returning_fn_expected_nonreturning_found loc name prev =
-  (loc, TypeError (TypeError.ReturningFnExpectedNonReturningFound (name, prev)))
+let returning_fn_expected_nonreturning_found loc name decl_loc =
+  ( loc
+  , TypeError (TypeError.ReturningFnExpectedNonReturningFound (name, decl_loc))
+  )
 
 let illtyped_reduce_sum_not_array loc ty =
   (loc, TypeError (TypeError.IllTypedReduceSumNotArray ty))
@@ -842,28 +844,30 @@ let illtyped_reduce_sum_not_array loc ty =
 let illtyped_reduce_sum_slice loc ty =
   (loc, TypeError (TypeError.IllTypedReduceSumSlice ty))
 
-let illtyped_reduce_sum loc name arg_tys args error prev =
-  ( loc
-  , TypeError (TypeError.IllTypedReduceSum (name, arg_tys, args, error, prev))
-  )
-
-let illtyped_variadic loc name arg_tys args fn_rt error prev =
+let illtyped_reduce_sum loc name arg_tys args error callback_loc =
   ( loc
   , TypeError
-      (TypeError.IllTypedVariadic (name, arg_tys, args, error, fn_rt, prev)) )
+      (TypeError.IllTypedReduceSum (name, arg_tys, args, error, callback_loc))
+  )
+
+let illtyped_variadic loc name arg_tys args fn_rt error callback_loc =
+  ( loc
+  , TypeError
+      (TypeError.IllTypedVariadic
+         (name, arg_tys, args, error, fn_rt, callback_loc)) )
 
 let forwarded_function_application_error loc caller name required_args details
-    prev =
+    callback_loc =
   ( loc
   , TypeError
       (TypeError.IllTypedForwardedFunctionApp
-         (caller, name, required_args, details, prev)) )
+         (caller, name, required_args, details, callback_loc)) )
 
-let forwarded_function_signature_error loc caller name details prev =
+let forwarded_function_signature_error loc caller name details callback_loc =
   ( loc
   , TypeError
-      (TypeError.IllTypedForwardedFunctionSignature (caller, name, details, prev))
-  )
+      (TypeError.IllTypedForwardedFunctionSignature
+         (caller, name, details, callback_loc)) )
 
 let illtyped_laplace_helper_args loc name lik_args details =
   ( loc
@@ -891,8 +895,8 @@ let ambiguous_function_promotion loc name arg_tys signatures =
   , TypeError (TypeError.AmbiguousFunctionPromotion (name, arg_tys, signatures))
   )
 
-let returning_fn_expected_nonfn_found loc name prev =
-  (loc, TypeError (TypeError.ReturningFnExpectedNonFnFound (name, prev)))
+let returning_fn_expected_nonfn_found loc name decl_loc =
+  (loc, TypeError (TypeError.ReturningFnExpectedNonFnFound (name, decl_loc)))
 
 let returning_fn_expected_undeclaredident_found loc name sug =
   ( loc
@@ -910,11 +914,13 @@ let returning_fn_expected_wrong_dist_suffix_found loc (prefix, suffix) =
   , TypeError
       (TypeError.ReturningFnExpectedWrongDistSuffixFound (prefix, suffix)) )
 
-let nonreturning_fn_expected_returning_found loc name prev =
-  (loc, TypeError (TypeError.NonReturningFnExpectedReturningFound (name, prev)))
+let nonreturning_fn_expected_returning_found loc name decl_loc =
+  ( loc
+  , TypeError (TypeError.NonReturningFnExpectedReturningFound (name, decl_loc))
+  )
 
-let nonreturning_fn_expected_nonfn_found loc name prev =
-  (loc, TypeError (TypeError.NonReturningFnExpectedNonFnFound (name, prev)))
+let nonreturning_fn_expected_nonfn_found loc name decl_loc =
+  (loc, TypeError (TypeError.NonReturningFnExpectedNonFnFound (name, decl_loc)))
 
 let nonreturning_fn_expected_undeclaredident_found loc name sug =
   ( loc
@@ -952,8 +958,8 @@ let ident_is_model_name loc name =
 let ident_is_stanmath_name loc name =
   (loc, IdentifierError (IdentifierError.IsStanMathName name))
 
-let ident_in_use loc name prev =
-  (loc, IdentifierError (IdentifierError.InUse (name, prev)))
+let ident_in_use loc name decl_loc =
+  (loc, IdentifierError (IdentifierError.InUse (name, decl_loc)))
 
 let ident_not_in_scope loc name sug =
   (loc, IdentifierError (IdentifierError.NotInScope (name, sug)))
@@ -984,11 +990,13 @@ let empty_array loc = (loc, ExpressionError ExpressionError.EmptyArray)
 let empty_tuple loc = (loc, ExpressionError ExpressionError.EmptyTuple)
 let bad_int_literal loc = (loc, ExpressionError ExpressionError.IntTooLarge)
 
-let cannot_assign_to_read_only loc name prev =
-  (loc, StatementError (StatementError.CannotAssignToReadOnly (name, prev)))
+let cannot_assign_to_read_only loc name decl_loc =
+  (loc, StatementError (StatementError.CannotAssignToReadOnly (name, decl_loc)))
 
-let cannot_assign_to_global loc name block prev =
-  (loc, StatementError (StatementError.CannotAssignToGlobal (name, block, prev)))
+let cannot_assign_to_global loc name block decl_loc =
+  ( loc
+  , StatementError (StatementError.CannotAssignToGlobal (name, block, decl_loc))
+  )
 
 let cannot_assign_function loc name ut =
   (loc, StatementError (StatementError.CannotAssignFunction (name, ut)))
@@ -1034,8 +1042,10 @@ let expression_return_outside_returning_fn loc =
 let void_outside_nonreturning_fn loc =
   (loc, StatementError StatementError.VoidReturnOutsideNonReturningFn)
 
-let non_data_variable_size_decl loc block prev =
-  (loc, StatementError (StatementError.NonDataVariableSizeDecl (block, prev)))
+let non_data_variable_size_decl loc block other_decl_loc =
+  ( loc
+  , StatementError
+      (StatementError.NonDataVariableSizeDecl (block, other_decl_loc)) )
 
 let non_int_bounds loc = (loc, StatementError StatementError.NonIntBounds)
 let complex_transform loc = (loc, StatementError StatementError.ComplexTransform)
@@ -1043,17 +1053,17 @@ let complex_transform loc = (loc, StatementError StatementError.ComplexTransform
 let no_int_params loc transformed =
   (loc, StatementError (StatementError.IntegerParameter transformed))
 
-let fn_overload_rt_only loc name rt1 rt2 prev =
-  (loc, TypeError (TypeError.FuncOverloadRtOnly (name, rt1, rt2, prev)))
+let fn_overload_rt_only loc name rt1 rt2 overload_loc =
+  (loc, TypeError (TypeError.FuncOverloadRtOnly (name, rt1, rt2, overload_loc)))
 
-let fn_decl_redefined loc name ut prev =
-  (loc, TypeError (TypeError.FuncDeclRedefined (name, ut, prev)))
+let fn_decl_redefined loc name ut original_loc =
+  (loc, TypeError (TypeError.FuncDeclRedefined (name, ut, original_loc)))
 
 let stan_math_fn_redefined loc name ut =
   (loc, TypeError (TypeError.StanMathFuncRedefined (name, ut)))
 
-let fn_decl_exists loc name prev =
-  (loc, TypeError (TypeError.FunDeclExists (name, prev)))
+let fn_decl_exists loc name original_loc =
+  (loc, TypeError (TypeError.FunDeclExists (name, original_loc)))
 
 let fn_decl_without_def loc name =
   (loc, TypeError (TypeError.FunDeclNoDefn name))
